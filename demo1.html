@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue-components</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+    <div id="app" class="container">
+        <table class="table table-striped">
+            <thead>
+                <th>编号</th>
+                <th>名称</th>
+                <th>单价（元/斤）</th>
+                <th>重量（斤）</th>
+                <th>总价（元）</th>
+            </thead>
+            <tbody>
+                <tr v-for="(item, index) in goods">
+                    <td>{{index+1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.price}}</td>
+                    <td>
+                        <button class="btn" @click="item.weight++">+</button>
+                        {{item.weight}}
+                        <button class="btn" @click="item.weight <=0 ? 0 : item.weight--">-</button>
+                    </td>
+                    <td>
+                        {{item.price * item.weight}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <samp>商品总价为：{{getTotalPrice}}<samp>
+    </div>
+    <script>
+        var goods = [
+            { name:'西瓜',price:3,weight:2},
+            { name:'枇杷',price:36,weight:2},
+            { name:'橘子',price:8,weight:8},
+            { name:'核桃',price:12,weight:3},
+            { name:'哈密瓜',price:23,weight:5},
+            { name:'甘蔗',price:7,weight:3},
+            { name:'火龙果',price:12,weight:9},
+            { name:'菠萝',price:15,weight:7},
+            { name:'枇杷',price:36,weight:2}]
+        new Vue({
+            el:'#app',
+            data:{
+                goods 
+            },
+            methods:{
+            },
+            computed:{
+                getTotalPrice(){
+                   var totalPrice = 0;
+                   for(var i = 0;i < this.goods.length; i++){
+                       totalPrice += this.goods[i].price*this.goods[i].weight;
+                   }
+                   return totalPrice;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
